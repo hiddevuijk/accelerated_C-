@@ -23,9 +23,13 @@ int main()
 		students.push_back(record);
 	}
 
+
+	list<Student_info> failed = extract_fails(students);
+	failed.sort(compare);
 	students.sort(compare);
 
-	list<Student_info>::iterator iter = students.begin();
+	cout << "Students passed:" << endl;
+	list<Student_info>::const_iterator iter = students.begin();
 	while(iter != students.end()) {
 
 		cout << iter->name
@@ -42,6 +46,23 @@ int main()
 		iter++;
 	}		
 
+	cout << "Students failed:" << endl;
+	list<Student_info>::const_iterator iterf = failed.begin();
+	while(iterf != failed.end()) {
+
+		cout << iterf->name
+			<< string(maxlen + 1 - iterf->name.size(), ' ' );
+			
+		try {
+			double final_grade = grade(*iterf);
+			streamsize prec = cout.precision();
+			cout << setprecision(3) << final_grade << setprecision(prec);
+		} catch (domain_error e ) {
+			cout << e.what();
+		}
+		cout << endl;
+		iterf++;
+	}
 
 	return 0;
 }
