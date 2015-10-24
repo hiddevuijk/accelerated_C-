@@ -3,6 +3,7 @@
 #include "grade.h"
 
 using std::istream;		using std::vector;
+using std::list;
 
 bool compare(const Student_info& x, const Student_info& y)
 {
@@ -39,7 +40,7 @@ list<Student_info> extract_fails(list<Student_info>& students)
 			fail.push_back(*iter);
 			iter = students.erase(iter);
 		} else
-			i++;
+			iter++;
 
 	}
 	return fail;

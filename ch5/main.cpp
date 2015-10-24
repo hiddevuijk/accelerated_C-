@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <list>
 #include <stdexcept>
 
 #include "grade.h"
@@ -13,7 +14,7 @@ using namespace::std;
 
 int main()
 {
-	vector<Student_info> students;
+	list<Student_info> students;
 	Student_info record;
 	string::size_type maxlen = 0;
 
@@ -22,22 +23,23 @@ int main()
 		students.push_back(record);
 	}
 
-	sort(students.begin(), students.end(), compare);
+	students.sort(compare);
 
-	for(vector<Student_info>::size_type i = 0;
-			i < students.size();i++) {
+	list<Student_info>::iterator iter = students.begin();
+	while(iter != students.end()) {
 
-		cout << students[i].name
-			<< string(maxlen + 1 - students[i].name.size(), ' ' );
+		cout << iter->name
+			<< string(maxlen + 1 - iter->name.size(), ' ' );
 			
 		try {
-			double final_grade = grade(students[i]);
+			double final_grade = grade(*iter);
 			streamsize prec = cout.precision();
 			cout << setprecision(3) << final_grade << setprecision(prec);
 		} catch (domain_error e ) {
 			cout << e.what();
 		}
 		cout << endl;
+		iter++;
 	}		
 
 
