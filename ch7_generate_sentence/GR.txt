@@ -1,0 +1,31 @@
+<noun> cat
+<noun> dog
+<noun> table
+<noun> plant
+<noun> desk
+<noun> plate
+<noun-phrase> <adjective> <noun-phrase>
+<noun-phrase> <noun>
+<adjective> large
+<adjcetive> brown
+<adjective> absurd
+<adjective> red
+<adjective> beautiful
+<adjective> heavy
+<adjective> light
+<adjective> dark
+<adjective> eloquent
+<edjective> polemic
+<verb> reads
+<verb> walks
+<verb> eats
+<verb> makes diner
+<verb> jumps
+<verb> sits
+<location> in the library
+<location> in the kitchen
+<location> in the garden
+<location> on the stairs
+<location> under the sky
+<location> wherever it wants
+<sentence> the <noun-phrase> <verb> <location>
