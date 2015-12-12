@@ -11,9 +11,6 @@ public:
 	typedef T& reference;
 	typedef const T& const_reference;
 
-	Vec() { create(); }
-	explicit Vec(std::size_t n, const T& val = T()) { create(n,val); }
-
 	size_type size() const { return limit - data; }
 
 	T& operator[](size_type i) {return data[i]; }
@@ -25,10 +22,28 @@ public:
 	iterator end() { return limit; }
 	const_iterator end() const { return limit; }
 
+	Vec() { create(); }
+	explicit Vec(std::size_t n, const T& val = T()) { create(n,val); }
+	Vec( const Vec& v) { create(v.begin(), v.end() ); }
+
+	Vec& operator=(const Vec&);
+
 private:
 	iterator data;
 	iterator limit;
 };
+
+
+
+template <class T>
+Vec<T>& Vec<T>::operator=(const Vec& rhs)
+{
+	if(&rhs !=this) {
+		uncreate();
+		create(rhs.begin(), rhs.end());
+	}
+	return *this;
+}
 
 
 #endif
