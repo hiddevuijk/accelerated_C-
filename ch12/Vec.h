@@ -48,6 +48,11 @@ public:
 			grow();
 		unchecke_append(val);
 	}
+
+	iterator erase(iterator);
+	iterator erase(iterator,iterator);
+	void clear() { uncreate(); }
+
 private:
 	iterator data;	// first element in Vec
 	iterator limit;	// one past the last element in Vec
@@ -128,4 +133,29 @@ void Vec<T>::unchecked_append(const T& val)
 {
 	alloc.construct(avail++,val);
 }
+
+template <class T>
+typename Vec<T>::iterator Vec<T>::erase(iterator b, iterator e)
+{
+	if(b!=avail) {
+		iterator it=e;
+		iterator jt=b;
+		for(iterator it,jt; it!=avail; *jt++=*it++);
+		iterator newavail = avail-e+b;
+		do
+			alloc.destroy(--avail);
+		while(avail!=newavail);
+	}
+	return b;
+}
+
+template<class T>
+typename Vec<T>::iterator Vec<T>::erase(iterator it)
+{
+	return erase(it,it+1);
+}
+
+
+
+
 #endif
