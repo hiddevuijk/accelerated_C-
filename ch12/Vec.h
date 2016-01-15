@@ -86,7 +86,7 @@ template<class T>
 void Vec<T>::create(const_iterator i, const_iterator j)
 {
 	data = alloc.allocate(j-i);
-	limit = avail = unitialized_copy(i,j,data);
+	limit = avail = std::uninitialized_copy(i,j,data);
 }
 
 template<class T>

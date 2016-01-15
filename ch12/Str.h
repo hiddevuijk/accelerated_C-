@@ -10,6 +10,9 @@
 
 class Str{
 	friend std::istream& operator>>(std::istream&, Str&);
+private:
+	Vec<char> data;
+
 public:
 	Str& operator+=(const Str& s)
 	{
@@ -26,7 +29,7 @@ public:
 		std::copy(cp,cp+std::strlen(cp),std::back_inserter(data));
 	}
 
-	template<classs In> Str(In b, In e) {
+	template<class In> Str(In b, In e) {
 		std::copy(b,e,std::back_inserter(data));
 	}
 
@@ -44,11 +47,9 @@ public:
 	iterator end() { return data.end(); }
 	const_iterator end() const { return data.end();}
 
-private:
-	Vec<char> data;
-}
-std::ostream& operator<<(std::ostream&, const Str&);
+};
 
+std::ostream& operator<<(std::ostream&, const Str&);
 Str operator+(const Str&, const Str&);
 
 std::ostream& operator<<(std::ostream& os, const Str& s)
@@ -79,7 +80,6 @@ Str operator+(const Str& s, const Str& t)
 	r += t;
 	return r;
 }
-
 
 
 
