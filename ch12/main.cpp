@@ -2,6 +2,8 @@
 #include <vector>
 #include <string>
 
+#include "Vec.h"
+#include "Str.h"
 
 using namespace::std;
 

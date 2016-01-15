@@ -43,11 +43,7 @@ public:
 	Vec& operator=(const Vec&);
 
 	// push_back
-	void push_back(const T& val) {
-		if(avail==limit)
-			grow();
-		unchecke_append(val);
-	}
+	void push_back(const T&);
 
 	iterator erase(iterator);
 	iterator erase(iterator,iterator);
@@ -69,6 +65,32 @@ private:
 	void unchecked_append(const T&);
 
 };
+
+
+
+template<class T>
+void Vec<T>::grow()
+{
+	size_type  new_size = std::max(2*(limit-data),std::ptrdiff_t(1));
+
+	iterator new_data = alloc.allocate(new_size);
+	iterator new_avail = std::uninitialized_copy(data,avail,new_data);
+
+	uncreate();
+
+	data = new_data;
+	avail = new_avail;
+	limit = data + new_size;
+}
+
+template<class T>
+void Vec<T>::push_back(const T& val) {
+	if(avail==limit)
+		grow();
+	unchecked_append(val);
+}
+
+
 
 template<class T>
 Vec<T>& Vec<T>::operator=(const Vec& rhs)
@@ -111,21 +133,6 @@ void Vec<T>::uncreate()
 		alloc.deallocate(data,limit-data);
 	}
 	data=limit=0;
-}
-
-template<class T>
-void Vec<T>::grow()
-{
-	size_type  new_size = max(2*(limit-data),ptrdiff_t(1));
-
-	iterator new_data = alloc.allocate(new_size);
-	iterator new_avail = unitialized_copy(data,avail,new_data);
-
-	uncreate();
-
-	data = new_data;
-	avail = new_avail;
-	limit = data + new_size;
 }
 
 template<class T>

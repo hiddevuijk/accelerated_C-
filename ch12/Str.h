@@ -2,7 +2,7 @@
 #define GUARD_Str_h
 
 #include "Vec.h"
-
+#include <string.h>
 class Str{
 	typedef Vec<char>::size_type size_type;
 
@@ -10,8 +10,8 @@ class Str{
 
 	Str(size_type n, char c) : data(n,c) {}
 
-	Str(cosnt char* cp) {
-		std::copy(cp, cp+std::strlen(cp), std::back_inserter(data));
+	Str(const char* cp) {
+		std::copy(cp, cp+strlen(cp), std::back_inserter(data));
 	}
 
 	template<class In> Str(In b, In e) {
