@@ -2,6 +2,8 @@
 #define GUARD_Vec_h
 
 #include <memory>
+#include <cstddef>
+#include <algorithm>
 
 template<class T>
 class Vec {
@@ -66,6 +68,39 @@ private:
 
 };
 
+template<class T>
+void Vec<T>::create()
+{
+	data = avail = limit = 0;
+}
+
+template<class T>
+void Vec<T>::create(size_type n, const T& val)
+{
+	data = alloc.allocate(n);
+	limit = avail = data+n;
+	std::uninitialized_fill(data,limit,val);
+}
+
+template<class T>
+void Vec<T>::create(const_iterator i, const_iterator j)
+{
+	data = alloc.allocate(j-i);
+	limit = avail = unitialized_copy(i,j,data);
+}
+
+template<class T>
+void Vec<T>::uncreate()
+{
+	if(data) {
+		iterator it = avail;
+		while(it!=data)
+			alloc.destroy(--it);
+		alloc.deallocate(data,limit-data);
+	}
+	data=limit=0;
+}
+
 
 
 template<class T>
@@ -100,39 +135,6 @@ Vec<T>& Vec<T>::operator=(const Vec& rhs)
 		create(rhs.begin(),rhs.end());
 	}
 	return *this;
-}
-
-template<class T>
-void Vec<T>::create()
-{
-	data = avail = limit = 0;
-}
-
-template<class T>
-void Vec<T>::create(size_type n, const T& val)
-{
-	data = alloc.allocate(n);
-	limit = avail = data+n;
-	std::uninitialized_fill(data,limit,val);
-}
-
-template<class T>
-void Vec<T>::create(const_iterator i, const_iterator j)
-{
-	data = alloc.allocate(j-i);
-	limit = avail = unitialized_copy(i,j,data);
-}
-
-template<class T>
-void Vec<T>::uncreate()
-{
-	if(data) {
-		iterator it = avail;
-		while(it!=data)
-			alloc.destroy(--it);
-		alloc.deallocate(data,limit-data);
-	}
-	data=limit=0;
 }
 
 template<class T>
