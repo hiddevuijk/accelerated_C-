@@ -12,7 +12,6 @@ class Str{
 	friend std::istream& operator>>(std::istream&, Str&);
 private:
 	Vec<char> data;
-
 public:
 	Str& operator+=(const Str& s)
 	{
@@ -47,6 +46,7 @@ public:
 	iterator end() { return data.end(); }
 	const_iterator end() const { return data.end();}
 
+
 };
 
 std::ostream& operator<<(std::ostream&, const Str&);
@@ -80,7 +80,5 @@ Str operator+(const Str& s, const Str& t)
 	r += t;
 	return r;
 }
-
-
 
 #endif
