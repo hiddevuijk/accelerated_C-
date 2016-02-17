@@ -5,6 +5,7 @@
 #include "compare_Core_handles.h"
 #include "Ref_handle.h"
 #include "Ptr.h"
+#include "Str.h"
 
 #include <iostream>
 #include <string>

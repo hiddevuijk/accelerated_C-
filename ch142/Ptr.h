@@ -1,6 +1,12 @@
 #ifndef GUARD_Ptr_h
 #define GUARD_Ptr_h
 
+
+template<class T>
+T* clone(const T* tp) { return tp->clone(); }
+
+
+
 template<class T>
 class Ptr {
 public:
@@ -8,7 +14,7 @@ public:
 		if(*refptr != 1) {
 			--*refptr;
 			refptr = new size_t(1);
-			p = p? p->clone() : NULL;
+			p = p? clone(p) : NULL;
 		}
 	}
 
