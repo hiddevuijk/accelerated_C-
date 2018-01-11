@@ -7,6 +7,7 @@
 
 class Core{
 public:
+	virtual ~Core() {}
 	Core(): midterm(0), final(0) { }
 	Core(std::istream& in) { read(in);}
 	std::string name() const { return n;}
@@ -72,6 +73,17 @@ bool compare(const Core& c1, const Core& c2)
 {
 	return c1.grade() < c2.grade();
 }
+
+bool compare_Core_pointer(const Core* p1, const Core* p2)
+{
+	return compare(*p1,*p2);
+}
+
+
+
+
+
+
 
 
 #endif

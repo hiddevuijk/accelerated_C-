@@ -5,36 +5,49 @@
 #include <vector>
 #include <string>
 #include <iomanip>
+#include <stdexcept>
 
 using namespace std;
 
-class A{
-public:
-	A(): i(0) {}
-	A(int a): i(a) {}
-	int ia() {return i;}
-	virtual int T() {return i;}
-private:
-	int i;
-};
-
-class B: public A{
-public:
-	B(): j(0) {}
-	B(int b,int a): j(b),A(a) {}
-	int ib() {return j;}
-	int T() {return ia()+j;}
-private:
-	int j;
-};
 int main()
 {
-	A a(1);
-	B b(2,1);
+	
+	vector<Core*> students;
+	Core* record;
+	char ch;
+	string::size_type maxlen = 0;
 
-	A& r = b;
-	A* p = &b;
-	cout << r.T() << endl;
-	cout << p->T() << endl;
+	while(cin >> ch) {
+		if(ch=='U')
+			record = new Core;
+		else
+			record = new Grad;
+		record->read(cin);
+		maxlen = max(maxlen,record->name().size());
+		students.push_back(record);
+	}
+
+	for(vector<Core*>::size_type i = 0;
+		i != students.size();++i) {
+
+		cout << students[i]->name()
+		     << string(maxlen+1-students[i]->name().size(),' ');
+		try {
+			double final_grade = students[i]->grade();
+			streamsize prec = cout.precision();
+			cout << setprecision(3) << final_grade
+			     << setprecision(prec) << endl;
+		} catch (domain_error e) {
+			cout << e.what() << endl;
+		}
+		delete students[i];
+	}
+	
+
+
+
+
+
+
 	return 0;
 }
